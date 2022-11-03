@@ -1,7 +1,5 @@
 import React from 'react'
 
-export default function SingleEvent() {
-  return (
-    <div>[id]</div>
-  )
+export default function EventDetail() {
+  return <div>EventDetail</div>;
 }

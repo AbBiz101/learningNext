@@ -1,5 +1,5 @@
 import React from 'react';
 
 export default function AllEvents() {
-	return <div>Events</div>;
+	return <div>AllEvents</div>;
 }
