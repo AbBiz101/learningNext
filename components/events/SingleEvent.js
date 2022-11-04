@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '../button/button';
+import Button from '../ui/button';
 import DateIcon from '../icons/date-icon';
 import AddressIcon from '../icons/address-icon';
 import ArrowRightIcon from '../icons/arrow-right-icon';
@@ -7,7 +7,7 @@ import classes from './event-item.module.css';
 export default function SingleEvent(props) {
 	const { id, title, description, location, image, date, time, isFeatured } =
 		props;
-	const humanDate = new Date(date).toLocaleDateString('de', {
+	const humanDate = new Date(date).toLocaleDateString('en-US', {
 		day: 'numeric',
 		month: 'long',
 		year: 'numeric',
