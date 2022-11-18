@@ -1,7 +1,7 @@
 import React from 'react';
 import EventList from '../../components/events/EventList';
 import EventSearch from '../../components/events/eventSearch';
-import { getAllEvents } from '../../dummy-data';
+import { getAllEvents } from '../helpers/api-util';
 import router, { useRouter } from 'next/router';
 export default function AllEvents() {
 	const event = getAllEvents();

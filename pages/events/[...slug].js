@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import { getFilteredEvents } from '../../dummy-data';
+import { getFilteredEvents } from '../helpers/api-util';
 import EventList from '../../components/events/EventList';
 import ResultsTitle from '../../components/events/results-title';
 import ErrorEvent from './../../components/ui/error-alert';
