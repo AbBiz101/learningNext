@@ -1,8 +1,7 @@
-import { Fragment, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import useSWR from 'swr';
 import Head from 'next/head';
-import { getFilteredEvents } from '../../helpers/api-util';
+import { useRouter } from 'next/router';
+import { Fragment, useEffect, useState } from 'react';
+import useSWR from 'swr';
 import EventList from '../../components/events/event-list';
 import ResultsTitle from '../../components/events/results-title';
 import Button from '../../components/ui/button';
@@ -11,9 +10,7 @@ import ErrorAlert from '../../components/ui/error-alert';
 function FilteredEventsPage(props) {
 	const [loadedEvents, setLoadedEvents] = useState();
 	const router = useRouter();
-
 	const filterData = router.query.slug;
-
 	const { data, error } = useSWR(
 		'https://nextjs-552d1-default-rtdb.firebaseio.com/events.json',
 	);
@@ -21,27 +18,39 @@ function FilteredEventsPage(props) {
 	useEffect(() => {
 		if (data) {
 			const events = [];
-
 			for (const key in data) {
 				events.push({
 					id: key,
 					...data[key],
 				});
 			}
-
 			setLoadedEvents(events);
 		}
 	}, [data]);
 
 	if (!loadedEvents) {
-		return <p className="center">Loading...</p>;
+		return (
+			<>
+				<Head>
+					<title>Events loading</title>
+				</Head>
+				<p className="center">Loading...</p>;
+			</>
+		);
 	}
 
 	const filteredYear = filterData[0];
 	const filteredMonth = filterData[1];
-
 	const numYear = +filteredYear;
 	const numMonth = +filteredMonth;
+
+	const pageHeader = (
+		<Head>
+			<title>
+				All Events in {numYear}/{numMonth}
+			</title>
+		</Head>
+	);
 
 	if (
 		isNaN(numYear) ||
@@ -54,6 +63,7 @@ function FilteredEventsPage(props) {
 	) {
 		return (
 			<Fragment>
+				{pageHeader}
 				<ErrorAlert>
 					<p>Invalid filter. Please adjust your values!</p>
 				</ErrorAlert>
@@ -75,6 +85,7 @@ function FilteredEventsPage(props) {
 	if (!filteredEvents || filteredEvents.length === 0) {
 		return (
 			<Fragment>
+				{pageHeader}
 				<ErrorAlert>
 					<p>No events found for the chosen filter!</p>
 				</ErrorAlert>
@@ -89,9 +100,7 @@ function FilteredEventsPage(props) {
 
 	return (
 		<Fragment>
-			<Head>
-				<title>Filtered Events</title>
-			</Head>
+			{pageHeader}
 			<ResultsTitle date={date} />
 			<EventList items={filteredEvents} />
 		</Fragment>
