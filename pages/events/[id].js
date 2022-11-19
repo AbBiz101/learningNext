@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import { getEventById, getAllEvents } from '../helpers/api-util';
+import { getEventById, getFeaturedEvents } from '../../helpers/api-util';
 import EventSummary from './../../components/event-detail/event-summary';
 import EventLogistics from './../../components/event-detail/event-logistics';
 import EventContent from './../../components/event-detail/event-content';
@@ -8,7 +8,6 @@ import ErrorEvent from './../../components/ui/error-alert';
 
 export default function EventDetail(props) {
 	const event = props.event;
-	console.log(event);
 	if (!event) {
 		return <ErrorEvent>No event found!</ErrorEvent>;
 	}
@@ -30,21 +29,22 @@ export default function EventDetail(props) {
 }
 
 export async function getStaticProps(context) {
-	const eventID = context.params.id;
-	const event = await getEventById(eventID);
-
+	const id = context.params.id;
+	const event = await getEventById(id);
+	console.log(id, event);
 	return {
 		props: {
 			event: event,
 		},
+		revalidate: 100,
 	};
 }
 
-export async function getStaticPaths(context) {
-	const events = await getAllEvents();
+export async function getStaticPaths() {
+	const events = await getFeaturedEvents();
 	const paths = events.map((i) => ({ params: { id: i.id } }));
 	return {
 		paths: paths,
-		fallback: false,
+		fallback: true,
 	};
 }

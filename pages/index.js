@@ -1,4 +1,5 @@
 import React from 'react';
+import EventList from '../components/events/EventList';
 import { getFeaturedEvents } from '../helpers/api-util';
 
 export default function Home(props) {
@@ -11,11 +12,11 @@ export default function Home(props) {
 
 export async function getStaticProps() {
 	const events = await getFeaturedEvents();
-	console.log(events);
-	
+
 	return {
 		props: {
 			events: events,
 		},
+		revalidate: 1800
 	};
 }

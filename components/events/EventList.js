@@ -5,7 +5,7 @@ export default function EventList(props) {
 	const { items } = props;
 	return (
 		<div className={classes.list}>
-			{items.map((event) => (
+			{ items.map((event) => (
 				<SingleEvent
 					key={event.id}
 					id={event.id}

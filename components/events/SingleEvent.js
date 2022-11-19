@@ -30,7 +30,7 @@ export default function SingleEvent(props) {
 					</div>
 				</div>
 				<div className={classes.actions}>
-					<Button link={url}>
+					<Button link={url} >
 						<span>Explore Event</span>
 						<span className={classes.icon}>
 							<ArrowRightIcon />

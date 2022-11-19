@@ -9,8 +9,7 @@ export async function getAllEvents() {
 			id: i,
 			...data[i],
 		});
-    }
-    console.log(allEvents);
+	}
 	return allEvents;
 }
 
@@ -18,20 +17,22 @@ export async function getFeaturedEvents() {
 	const req = await getAllEvents();
 	return req.filter((event) => event.isFeatured);
 }
-// export async function getFilteredEvents(dateFilter) {
-// 	const { year, month } = dateFilter;
 
-// 	let filteredEvents = DUMMY_EVENTS.filter((event) => {
-// 		const eventDate = new Date(event.date);
-// 		return (
-// 			eventDate.getFullYear() === year && eventDate.getMonth() === month - 1
-// 		);
-// 	});
+export async function getFilteredEvents(dateFilter) {
+	const { year, month } = dateFilter;
+	const req = await getAllEvents();
+	let filteredEvents = req.filter((event) => {
+		const eventDate = new Date(event.date);
+		return (
+			eventDate.getFullYear() === year && eventDate.getMonth() === month - 1
+		);
+	});
 
-// 	return filteredEvents;
-// }
+	return filteredEvents;
+}
 
 export async function getEventById(id) {
-    const req = await getAllEvents();
+	console.log(id);
+	const req = await getAllEvents();
 	return req.find((event) => event.id === id);
 }
