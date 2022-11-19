@@ -1,5 +1,4 @@
 import React from 'react';
-import { useRouter } from 'next/router';
 import { getEventById, getFeaturedEvents } from '../../helpers/api-util';
 import EventSummary from './../../components/event-detail/event-summary';
 import EventLogistics from './../../components/event-detail/event-logistics';
